@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\communicate",
+    "\\src\\components\\models",
+    "\\src\\components\\views",
+    "\\src\\components\\views\\Card",
+    "\\src\\components\\views\\Form"
+  ],
+  "SelectedNode": "\\src\\components\\views\\Form",
+  "PreviewInSolutionExplorer": false
+}

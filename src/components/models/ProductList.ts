@@ -1,6 +1,5 @@
 import { IProduct } from "../../types";
 import { IEvents } from "../base/Events";
-
 export class ProductsModel {
     private products: IProduct[] = [];
     private selectedProduct: IProduct | null = null;

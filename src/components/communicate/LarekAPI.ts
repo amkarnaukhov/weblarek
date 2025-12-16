@@ -4,7 +4,6 @@ import { IOrderRequest, IProduct, IProductCatalogResponse, IOrderResponse} from 
 export class LarekAPI {
     protected api: Api;
     readonly cdn: string;
-
     constructor(cdn: string, api: Api) {
         this.api = api;
         this.cdn = cdn;

@@ -75,7 +75,6 @@ export class EventEmitter implements IEvents {
     offAll() {
         this._events = new Map<string, Set<Subscriber>>();
     }
-
     /**
      * Сделать коллбек триггер, генерирующий событие при вызове
      */
@@ -88,3 +87,4 @@ export class EventEmitter implements IEvents {
         };
     }
 }
+

@@ -26,7 +26,6 @@ export class Api {
             method: 'GET'
         }).then(this.handleResponse<T>);
     }
-
     post<T extends object>(uri: string, data: object, method: ApiPostMethods = 'POST') {
         return fetch(this.baseUrl + uri, {
             ...this.options,

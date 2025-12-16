@@ -3,7 +3,6 @@ import { IEvents } from "../base/Events";
 
 export class BuyerModel {
     private data: Partial<IBuyer> = {};
-
     constructor(private events: IEvents) { }
 
     setData(data: Partial<IBuyer>): void {
