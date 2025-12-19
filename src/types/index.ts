@@ -35,7 +35,7 @@ export interface IBuyer {
 }
 
 // Способы оплаты
-export type TPayment = 'online' | 'card';
+export type TPayment = 'card' | 'cash';
 
 // Заказ для отправки на сервер
 export interface IOrderRequest {

@@ -1,7 +1,5 @@
-
-
 import { IProduct, IOrderRequest, IOrderResponse, IWebLarekAPI, IProductListResponse } from '../types';
-import {Api} from "../components/base/Api.ts";
+import { Api } from '../components/base/Api';
 
 export class WebLarekAPI implements IWebLarekAPI {
     protected api: Api;
@@ -16,7 +14,7 @@ export class WebLarekAPI implements IWebLarekAPI {
      * Получает список всех товаров с сервера
      */
     async getProductList(): Promise<IProduct[]> {
-        const result = await this.api.get<IProductListResponse>('/product/');
+        const result = await this.api.get<IProductListResponse>('/product');
         // Добавляем полный путь к изображениям
         return result.items.map((item) => ({
             ...item,
@@ -41,6 +39,6 @@ export class WebLarekAPI implements IWebLarekAPI {
      * @param order - объект с данными заказа
      */
     async createOrder(order: IOrderRequest): Promise<IOrderResponse> {
-        return this.api.post<IOrderResponse>('/order/', order);
+        return this.api.post<IOrderResponse>('/order', order);
     }
 }

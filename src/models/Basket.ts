@@ -1,11 +1,12 @@
-import {IProduct} from "../types";
+import { IProduct } from "../types";
+import { EventEmitter } from "../components/base/Events";
 
     /**
      * Класс Basket
      * Назначение: управление корзиной покупок пользователя
      * Зона ответственности: добавление/удаление товаров, подсчет стоимости и количества товаров в корзине
      */
-export class Basket {
+export class Basket extends EventEmitter {
     private items: IProduct[] = []; // Массив товаров в корзине
 
     /**
@@ -13,6 +14,7 @@ export class Basket {
      * Инициализирует пустой массив товаров в корзине
      */
     constructor() {
+        super();
         this.items = [];
     }
 
@@ -32,6 +34,7 @@ export class Basket {
         // Проверяем, что товар еще не добавлен в корзину
         if (!this.hasItem(product.id)) {
             this.items.push(product);
+            this.emitChange();
         }
     }
 
@@ -41,6 +44,7 @@ export class Basket {
      */
     removeItem(product: IProduct): void {
         this.items = this.items.filter(item => item.id !== product.id);
+        this.emitChange();
     }
 
     /**
@@ -48,6 +52,7 @@ export class Basket {
      */
     clearBasket(): void {
         this.items = [];
+        this.emitChange();
     }
 
     /**
@@ -78,5 +83,15 @@ export class Basket {
      */
     hasItem(id: string): boolean {
         return this.items.some(item => item.id === id);
+    }
+
+    /**
+     * Уведомление подписчиков об изменении корзины
+     */
+    private emitChange(): void {
+        this.emit("basket:changed", {
+            items: [...this.items],
+            total: this.getTotalPrice(),
+        });
     }
 }

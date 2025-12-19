@@ -2,13 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
+    "\\src\\components\\cards",
     "\\src\\components\\communicate",
+    "\\src\\components\\forms",
     "\\src\\components\\models",
-    "\\src\\components\\views",
-    "\\src\\components\\views\\Card",
-    "\\src\\components\\views\\Form"
+    "\\src\\vendor\\garamond",
+    "\\src\\vendor\\glyphter",
+    "\\src\\vendor\\ys-text"
   ],
-  "SelectedNode": "\\src\\components\\views\\Form",
+  "SelectedNode": "\\src\\vendor",
   "PreviewInSolutionExplorer": false
 }

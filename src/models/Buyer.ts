@@ -1,12 +1,13 @@
-import {IBuyer, TPayment} from "../types";
+import { IBuyer, TPayment } from "../types";
+import { EventEmitter } from "../components/base/Events";
 
 /**
  * Класс Buyer
  * Назначение: управление данными покупателя при оформлении заказа
  * Зона ответственности: хранение контактной информации, способа оплаты и валидация данных
  */
-export class Buyer {
-    private payment: TPayment = 'online'; // Способ оплаты по умолчанию
+export class Buyer extends EventEmitter {
+    private payment: TPayment = 'card'; // Способ оплаты по умолчанию
     private email: string = '';          // Email адрес покупателя
     private phone: string = '';          // Номер телефона покупателя
     private address: string = '';        // Адрес доставки
@@ -16,7 +17,8 @@ export class Buyer {
      * Инициализирует поля покупателя значениями по умолчанию
      */
     constructor() {
-        this.payment = 'online';
+        super();
+        this.payment = 'card';
         this.email = '';
         this.phone = '';
         this.address = '';
@@ -28,6 +30,7 @@ export class Buyer {
      */
     setPayment(payment: TPayment): void {
         this.payment = payment;
+        this.emitChange();
     }
 
     /**
@@ -36,6 +39,7 @@ export class Buyer {
      */
     setEmail(email: string): void {
         this.email = email.trim();
+        this.emitChange();
     }
 
     /**
@@ -44,6 +48,7 @@ export class Buyer {
      */
     setPhone(phone: string): void {
         this.phone = phone.trim();
+        this.emitChange();
     }
 
     /**
@@ -52,6 +57,7 @@ export class Buyer {
      */
     setAddress(address: string): void {
         this.address = address.trim();
+        this.emitChange();
     }
 
     /**
@@ -59,17 +65,27 @@ export class Buyer {
      * @param data - объект с частичными данными покупателя
      */
     setBuyerData(data: Partial<IBuyer>): void {
+        let changed = false;
+
         if (data.payment !== undefined) {
-            this.setPayment(data.payment);
+            this.payment = data.payment;
+            changed = true;
         }
         if (data.email !== undefined) {
-            this.setEmail(data.email);
+            this.email = data.email.trim();
+            changed = true;
         }
         if (data.phone !== undefined) {
-            this.setPhone(data.phone);
+            this.phone = data.phone.trim();
+            changed = true;
         }
         if (data.address !== undefined) {
-            this.setAddress(data.address);
+            this.address = data.address.trim();
+            changed = true;
+        }
+
+        if (changed) {
+            this.emitChange();
         }
     }
 
@@ -90,10 +106,11 @@ export class Buyer {
      * Очистка всех данных покупателя
      */
     clearBuyerData(): void {
-        this.payment = 'online';
+        this.payment = 'card';
         this.email = '';
         this.phone = '';
         this.address = '';
+        this.emitChange();
     }
 
     /**
@@ -145,5 +162,9 @@ export class Buyer {
      */
     isValidAddress(): boolean {
         return this.address.length > 0;
+    }
+
+    private emitChange(): void {
+        this.emit('buyer:changed', this.getBuyerData());
     }
 }
